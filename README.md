@@ -122,8 +122,8 @@ rpm-adapter-circuit/
 
 | Version | Coût circuit | Fiabilité |
 |---------|--------------|-----------|
-| V5.4.12.2 | 29-48€ | Standard |
-| **V5.4.12.3** | **32-52€** | **×10 long terme** |
+| V5.4.12.2 | 26-43€ | Standard |
+| **V5.4.12.3** | **29-47€** | **×10 long terme** |
 
 ## 👤 Auteur
 
