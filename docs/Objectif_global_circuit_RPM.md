@@ -2,7 +2,7 @@
 
 **Version document:** 2.0  
 **Date:** 03 Décembre 2025  
-**Circuit référence:** V5.4.12.1  
+**Circuit référence:** V5.4.12.2
 **Statut:** ✅ VALIDÉ — PRÊT FABRICATION  
 **Auteur:** Mehdi
 
@@ -55,8 +55,8 @@ Le circuit prend le signal d'allumage d'une bobine crayon moteur (côté command
 ## ARCHITECTURE GLOBALE
 
 ```
-[BATTERIE 12V] → Fusible → Schottky → TVS → Filtre π → PTC → R-78E → +5V
-                                                                    ↓
+[BATTERIE 12V] → Fusible → D1 (1N5408 1000V) → TVS → Filtre π → PTC → R-78E → +5V
+                                                                          ↓
 [BOBINE -300V] → Ferrites → R1 47kΩ → TVS 250V → R2 1kΩ → Zener 5.1V → H11L1 → VTACH → Innovate
 ```
 
@@ -164,9 +164,10 @@ Le circuit logique est alimenté à partir du 12V véhicule, mais **jamais direc
 - Placé très près de la prise 12V
 - Limite l'énergie disponible en cas de court-circuit
 
-**2. Diode Schottky D1 (1N5822)**
+**2. Diode D1 (1N5408 1000V)**
 - Clapet anti-retour
-- Empêche courant inverse si polarité inversée
+- Protection transitoires négatifs ISO 7637-2 Pulse 1 (-150V)
+- Marge large vs 1N5822 (40V insuffisant)
 
 **3. TVS D2 (15KPA18CA)**
 - Absorbe surtensions transitoires (load-dump, pics alternateur)
@@ -246,7 +247,7 @@ Point A → Point B → CHÂSSIS véhicule
 |-----|-----------|--------|----------|
 | U1 | R-78E5.0-0.5 | 5V 500mA | Régulateur DC-DC |
 | U2 | H11L1M | Opto Schmitt | Isolation galvanique |
-| D1 | 1N5822 | Schottky 40V 3A | Anti-inversion |
+| D1 | 1N5408 | Standard 1000V 3A | Anti-inversion + ISO 7637-2 |
 | D_flyback | 1N5822 | Schottky 40V 3A | Roue libre L1 |
 | D2 | 15KPA18CA | TVS 18V 15kW | Protection load-dump |
 | D3 | ZY27 (Diotec) | Zener 27V 2W | Protection régulateur |
