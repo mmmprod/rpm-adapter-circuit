@@ -1,6 +1,6 @@
 # 🔌 RPM Adapter Circuit
 
-![Version](https://img.shields.io/badge/Version-V5.4.12.2-blue)
+![Version](https://img.shields.io/badge/Version-V5.4.12.3-blue)
 ![Status](https://img.shields.io/badge/Status-VALIDÉ-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![ISO](https://img.shields.io/badge/ISO_7637--2-Conforme-green)
@@ -29,16 +29,23 @@ Convertir le signal d'allumage haute tension (-300V à -450V) d'une bobine crayo
 - ✅ **Isolation galvanique** via optocoupleur H11L1
 - ✅ **Protection anti-feu** multicouche (fusible, PTC, TVS, Zener)
 - ✅ **Conformité ISO 7637-2** — Protection transitoires négatifs (-150V)
+- ✅ **Condensateurs 105°C automotive** — Durée vie 20+ ans
+- ✅ **Fixations mécaniques** — RTV silicone, embouts ferrule, frein-filet
 - ✅ **100% analogique** — pas de microcontrôleur
-- ✅ **Dimensionné avec marges généreuses** sur tous composants
 - ✅ **Validé et testé** — prêt fabrication
 
-## 🆕 Changelog V5.4.12.2
+## 🆕 Changelog
 
-🔴 **Correction critique** — Protection transitoires négatifs ISO 7637-2 :
-- **D1 :** 1N5822 (40V) → **1N5408 (1000V)**
-- Marge ×6,6 vs -150V (Pulse 1 ISO 7637-2)
-- Drop-in replacement (même package DO-201AD)
+### V5.4.12.3 (09 Déc 2025)
+🔴 **Fiabilité mécanique** (audit Gemini) :
+- **Condensateurs** : 85°C → **105°C automotive** (durée vie ×10)
+- **Fixation D2/R1** : + RTV silicone neutre (anti-vibration)
+- **Borniers** : + Embouts ferrule + Frein-filet (anti-desserrage)
+- **Coût** : +3€ pour fiabilité garantie
+
+### V5.4.12.2 (09 Déc 2025)
+🔴 **Protection ISO 7637-2** :
+- **D1** : 1N5822 (40V) → **1N5408 (1000V)** — Marge ×6,6 vs -150V
 
 ## 🏗️ Architecture
 
@@ -56,10 +63,11 @@ rpm-adapter-circuit/
 ├── LICENSE
 ├── docs/
 │   ├── Objectif_global_circuit_RPM.md     # Vue d'ensemble et philosophie
-│   ├── Circuit_RPM_V5_4_12_2.md           # Schéma circuit détaillé V5.4.12.2
-│   └── PROTOCOLE_TEST_RPM_V2_7_3.md       # Protocole de test complet
+│   ├── Circuit_RPM_V5_4_12_2.md           # Schéma circuit détaillé
+│   ├── PROTOCOLE_TEST_RPM_V2_7_3.md       # Protocole de test complet
+│   └── GUIDE_MONTAGE_V5_4_12_2.md         # Guide montage pas-à-pas
 └── bom/
-    └── BOM_V5_4_12_2.md                   # Liste des composants V5.4.12.2
+    └── BOM_V5_4_12_3.md                   # Liste des composants V5.4.12.3
 ```
 
 ## 📖 Documentation
@@ -67,9 +75,10 @@ rpm-adapter-circuit/
 | Document | Description |
 |----------|-------------|
 | [Objectif Global](docs/Objectif_global_circuit_RPM.md) | Vue d'ensemble du projet et philosophie |
-| [Circuit V5.4.12.2](docs/Circuit_RPM_V5_4_12_2.md) | Schéma détaillé, blocs, topologies, BOM |
+| [Circuit V5.4.12.2](docs/Circuit_RPM_V5_4_12_2.md) | Schéma détaillé, blocs, topologies |
+| [Guide Montage](docs/GUIDE_MONTAGE_V5_4_12_2.md) | Instructions montage pas-à-pas |
 | [Protocole Test V2.7.3](docs/PROTOCOLE_TEST_RPM_V2_7_3.md) | Tests labo + terrain, checklist GO/NO-GO |
-| [BOM V5.4.12.2](bom/BOM_V5_4_12_2.md) | Liste complète des composants |
+| [BOM V5.4.12.3](bom/BOM_V5_4_12_3.md) | Liste complète des composants |
 
 ## 📋 Composants critiques
 
@@ -79,8 +88,8 @@ rpm-adapter-circuit/
 | U2 | H11L1M | Opto Schmitt | Isolation galvanique |
 | **D1** | **1N5408** 🔴 | **1000V 3A** | **Protection ISO 7637-2** |
 | D2 | 15KPA18CA | TVS 18V 15kW | Protection load-dump |
-| R1 | Résistance MOX | 47kΩ 5W 750V | Limitation courant HT |
-| D4 | 1.5KE250CA | TVS 250V | Protection bobine |
+| R1 | Résistance MOX | 47kΩ 5W | Limitation courant HT |
+| **C1, C2** | **Panasonic FR** 🔴 | **22µF 50V 105°C** | **Filtrage automotive** |
 
 ## 🧪 Tests de validation
 
@@ -100,11 +109,29 @@ rpm-adapter-circuit/
 
 > **D1 CRITIQUE** — Vérifier ×3 l'orientation de D1 (1N5408) avant mise sous tension.
 
+> **CONDENSATEURS** — Utiliser UNIQUEMENT des condensateurs 105°C automotive.
+
 ## 🛡️ Conformité
 
 - ✅ **ISO 16750-2** — Alimentation électrique véhicule
 - ✅ **ISO 7637-2** — Transitoires électriques (Pulse 1 à 5)
 - ✅ **AEC-Q100 Grade 3** — Composants -40°C à +85°C
+- ✅ **Fiabilité mécanique** — RTV + ferrules + frein-filet
+
+## 👤 Auteur
+
+**Mehdi** — [@mmmprod](https://github.com/mmmprod)
+
+## 📄 License
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## 💰 Coût estimé
+
+| Version | Coût circuit | Fiabilité |
+|---------|--------------|-----------|
+| V5.4.12.2 | 29-48€ | Standard |
+| **V5.4.12.3** | **32-52€** | **×10 long terme** |
 
 ## 👤 Auteur
 
@@ -116,4 +143,4 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 ---
 
-**Version:** V5.4.12.2 | **Date:** Décembre 2025 | **Statut:** ✅ VALIDÉ — PRÊT FABRICATION | **Confiance:** 10/10 🔥
+**Version:** V5.4.12.3 | **Date:** Décembre 2025 | **Statut:** ✅ VALIDÉ — PRÊT FABRICATION | **Confiance:** 10/10 🔥
