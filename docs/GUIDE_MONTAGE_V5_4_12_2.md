@@ -1,11 +1,11 @@
 # 🔧 Guide de Montage — RPM Adapter Circuit
 
-**Version circuit:** V5.4.12.2 (schéma) + V5.4.12.3 (BOM)  
-**Version guide:** V1.0  
+**Version circuit:** V5.4.12.4  
+**Version guide:** V1.1  
 **Date:** Décembre 2025  
 **Statut:** ✅ VALIDÉ
 
-> **Note**: Ce guide s'applique au schéma circuit V5.4.12.2 avec les améliorations BOM V5.4.12.3 (condensateurs 105°C + fixations mécaniques).
+> **Note**: Ce guide s'applique au circuit V5.4.12.4 avec protection F_véhicule obligatoire et boîtier UL94 V-0.
 
 ---
 
@@ -13,7 +13,9 @@
 
 ### Prérequis
 
-- [ ] BOM complète (voir [BOM_V5_4_12_3.md](../bom/BOM_V5_4_12_3.md))
+- [ ] BOM complète (voir [BOM_V5_4_12_4.md](../bom/BOM_V5_4_12_4.md))
+- [ ] **Fusible F_véhicule 1A Time-delay lame ATO + porte-fusible**
+- [ ] **Boîtier UL94 V-0 avec grilles ventilation >5cm²**
 - [ ] Circuit imprimé (PCB) propre et inspecté
 - [ ] Outils de soudure (station 350°C, étain 60/40)
 - [ ] Multimètre numérique
@@ -22,9 +24,10 @@
 
 ### ⚠️ Avertissements de sécurité
 
+> **F_VÉHICULE OBLIGATOIRE** — Sans fusible 1A <10cm du piquage = risque incendie câble  
 > **HAUTE TENSION** — Ce circuit manipule des signaux jusqu'à -450V  
-> **AUTOMOBILE** — Installation par personne qualifiée uniquement  
-> **D1 CRITIQUE** — Une inversion de polarité détruira le circuit
+> **D1 CRITIQUE** — Une inversion de polarité détruira le circuit  
+> **BOÎTIER UL94 V-0** — Plastique auto-extinguible obligatoire, ventilation requise
 
 ---
 
@@ -294,10 +297,124 @@
 
 ---
 
+## 📦 Étape finale : Installation dans boîtier UL94 V-0
+
+### 📋 Matériel requis
+
+- [ ] Boîtier aluminium OU ABS+PC certifié UL94 V-0
+- [ ] Dimensions min : 80×60×30mm (L×l×h)
+- [ ] Grilles ventilation : >5cm² total (ou perçage prévu)
+- [ ] 4 entretoises nylon M3 × 10mm (isolantes)
+- [ ] 4 vis M3 × 6mm (nylon ou inox)
+- [ ] 3-4 presse-étoupe IP54 (PG7 ou M12)
+- [ ] Étiquette "HAUTE TENSION -450V"
+
+### 🔴 Vérification certification UL94 V-0
+
+> **OBLIGATOIRE** — Le boîtier DOIT être certifié UL94 V-0 (auto-extinguible)
+
+**Procédure de vérification** :
+1. [ ] Consulter datasheet fabricant boîtier
+2. [ ] Chercher mention "UL94 V-0" ou "Flame Rating: V-0"
+3. [ ] Si absent : NE PAS utiliser ce boîtier (risque incendie)
+
+**Boîtiers recommandés** :
+- Hammond 1591XXFL (ABS+PC UL94 V-0)
+- Bud Industries NBF-32xxx (UL94 V-0)
+- Takachi TWN-xxx (UL94 V-0)
+- Hammond 1590N1 (Aluminium, incombustible)
+
+### 🌡️ Ventilation — Configuration requise
+
+**Dissipation thermique circuit** : 6,3W (R1 4,3W + R-78E 1,5W + autres 0,5W)
+
+**Configuration grilles** :
+- [ ] Grille entrée (bas boîtier) : 3cm² minimum
+- [ ] Grille sortie (haut boîtier) : 3cm² minimum
+- [ ] Total ventilation : >5cm² ✅
+
+**Positionnement optimal** :
+```
+┌─────────────────────┐
+│  [SORTIE 3cm²]  ↑  │ ← Haut boîtier (air chaud sort)
+│                     │
+│      [PCB]          │
+│       R1            │ ← R1 génère 4,3W
+│                     │
+│  [ENTRÉE 3cm²]  ↓  │ ← Bas boîtier (air frais entre)
+└─────────────────────┘
+```
+
+**Si boîtier sans grilles pré-percées** :
+- [ ] Percer 6-8 trous Ø5mm en bas (entrée)
+- [ ] Percer 6-8 trous Ø5mm en haut (sortie)
+- [ ] Ébavurer soigneusement
+- [ ] Total surface : 12-16 trous × 0,2cm² = 2,4-3,2cm² par grille ✅
+
+### 🔧 Montage PCB dans boîtier
+
+#### 1. Fixation entretoises isolantes
+- [ ] Visser 4 entretoises nylon M3 × 10mm dans fond boîtier
+- [ ] Espacer selon trous de fixation PCB (4 coins)
+- [ ] Vérifier isolation électrique (nylon = isolant)
+
+#### 2. Installation PCB
+- [ ] Poser PCB sur entretoises
+- [ ] Aligner trous de fixation PCB avec entretoises
+- [ ] Visser 4 vis M3 × 6mm (nylon ou inox)
+- [ ] Serrage modéré (ne pas écraser PCB)
+
+#### 3. Passage câbles externes
+- [ ] Identifier 3 câbles : +12V, Signal bobine, VTACH sortie
+- [ ] Installer presse-étoupe IP54 sur boîtier (3 entrées)
+- [ ] Passer câbles à travers presse-étoupe
+- [ ] Connecter aux borniers PCB (J1, J2, J3)
+- [ ] Serrer presse-étoupe (étanchéité IP54)
+
+#### 4. Câblage F_véhicule externe
+
+> **CRITIQUE** — F_véhicule DOIT être installé <10cm du piquage batterie
+
+**Configuration externe** :
+```
++BATT (véhicule) → [Porte-fusible lame ATO] → [F_véhicule 1A TD] → Câble 30cm → Boîtier J1+
+```
+
+- [ ] Installer porte-fusible lame ATO à <10cm batterie
+- [ ] Insérer fusible 1A Time-delay dans porte-fusible
+- [ ] Câble AWG 18 du porte-fusible vers boîtier J1 (30cm max)
+- [ ] Sertir embout ferrule sur extrémité câble
+- [ ] Connecter à bornier J1+ avec frein-filet
+
+#### 5. Marquage et sécurité
+- [ ] Coller étiquette "⚠️ HAUTE TENSION -450V" visible
+- [ ] Ajouter étiquette "⚡ NE PAS OUVRIR SOUS TENSION"
+- [ ] Inscrire date fabrication : ___/___/202X
+- [ ] Inscrire version circuit : V5.4.12.4
+
+#### 6. Fermeture boîtier
+- [ ] Vérifier qu'aucun fil n'est pincé
+- [ ] Vérifier ventilation dégagée (pas d'obstruction)
+- [ ] Fermer couvercle boîtier
+- [ ] Visser couvercle (serrage uniforme)
+
+### ✅ Vérifications post-installation boîtier
+
+- [ ] **F_véhicule présent** : <10cm batterie, 1A Time-delay ✅
+- [ ] **Ventilation libre** : Grilles non obstruées ✅
+- [ ] **Câbles serrés** : Presse-étoupe IP54 étanches ✅
+- [ ] **Marquage visible** : Étiquettes haute tension présentes ✅
+- [ ] **Fixation PCB** : Pas de jeu, entretoises isolantes ✅
+
+---
+
 ## ✅ Checklist finale
 
 ### Avant mise sous tension
 
+- [ ] **F_véhicule : 1A Time-delay installé <10cm batterie** ⚠️
+- [ ] **Boîtier : Certification UL94 V-0 vérifiée** ⚠️
+- [ ] **Ventilation : Grilles >5cm² dégagées** ⚠️
 - [ ] D1 (1N5408) orientation vérifiée ×3 (cathode vers U1)
 - [ ] Toutes les soudures inspectées et validées
 - [ ] Tous les condensateurs 105°C (C1, C2, C5)
@@ -327,20 +444,24 @@
 
 ## 📚 Références
 
-- [BOM V5.4.12.3](../bom/BOM_V5_4_12_3.md) — Liste complète des composants
-- [Circuit V5.4.12.2](Circuit_RPM_V5_4_12_2.md) — Schéma détaillé
+- [BOM V5.4.12.4](../bom/BOM_V5_4_12_4.md) — Liste complète des composants
+- [Circuit V5.4.12.4](Circuit_RPM_V5_4_12_4.md) — Schéma détaillé
 - [Protocole Test V2.7.3](PROTOCOLE_TEST_RPM_V2_7_3.md) — Tests complets
 
 ---
 
 ## ⚠️ Notes finales
 
+> **F_VÉHICULE OBLIGATOIRE** — Sans fusible 1A <10cm du piquage batterie = risque incendie câble. Ne JAMAIS alimenter le circuit sans cette protection.
+
 > **D1 CRITIQUE** — La diode D1 (1N5408) est le composant le plus critique. Une inversion de polarité détruira le régulateur U1 et potentiellement d'autres composants. Vérifier ×3 avant mise sous tension.
 
 > **CONDENSATEURS 105°C** — N'utiliser QUE des condensateurs 105°C automotive pour C1, C2, C5. Les condensateurs 85°C standard auront une durée de vie réduite (< 2 ans en environnement moteur).
+
+> **BOÎTIER UL94 V-0** — Le boîtier DOIT être certifié UL94 V-0 (auto-extinguible). Ventilation >5cm² REQUISE pour évacuation chaleur R1.
 
 > **FIXATIONS MÉCANIQUES** — Le RTV silicone, les embouts ferrule et le frein-filet sont essentiels pour la fiabilité long terme en environnement vibratoire. Ne pas négliger ces étapes.
 
 ---
 
-**FIN GUIDE MONTAGE V5.4.12.2**
+**FIN GUIDE MONTAGE V5.4.12.4**
