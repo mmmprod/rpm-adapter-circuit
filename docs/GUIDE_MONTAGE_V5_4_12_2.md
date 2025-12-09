@@ -24,7 +24,7 @@
 
 ### ⚠️ Avertissements de sécurité
 
-> **F_VÉHICULE OBLIGATOIRE** — Sans fusible 1A <10cm du piquage = risque incendie câble  
+> **F_VÉHICULE OBLIGATOIRE** — Sans fusible 1A <10cm du piquage batterie = risque incendie câble  
 > **HAUTE TENSION** — Ce circuit manipule des signaux jusqu'à -450V  
 > **D1 CRITIQUE** — Une inversion de polarité détruira le circuit  
 > **BOÎTIER UL94 V-0** — Plastique auto-extinguible obligatoire, ventilation requise
