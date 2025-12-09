@@ -118,14 +118,6 @@ rpm-adapter-circuit/
 - ✅ **AEC-Q100 Grade 3** — Composants -40°C à +85°C
 - ✅ **Fiabilité mécanique** — RTV + ferrules + frein-filet
 
-## 👤 Auteur
-
-**Mehdi** — [@mmmprod](https://github.com/mmmprod)
-
-## 📄 License
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
 ## 💰 Coût estimé
 
 | Version | Coût circuit | Fiabilité |

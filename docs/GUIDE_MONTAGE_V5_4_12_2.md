@@ -1,9 +1,11 @@
 # 🔧 Guide de Montage — RPM Adapter Circuit
 
-**Version circuit:** V5.4.12.2  
+**Version circuit:** V5.4.12.2 (schéma) + V5.4.12.3 (BOM)  
 **Version guide:** V1.0  
 **Date:** Décembre 2025  
 **Statut:** ✅ VALIDÉ
+
+> **Note**: Ce guide s'applique au schéma circuit V5.4.12.2 avec les améliorations BOM V5.4.12.3 (condensateurs 105°C + fixations mécaniques).
 
 ---
 
