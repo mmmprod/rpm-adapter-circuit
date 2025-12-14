@@ -1,148 +1,149 @@
 # 🔌 RPM Adapter Circuit
 
 ![Version](https://img.shields.io/badge/Version-V5.4.12.4-blue)
-![Status](https://img.shields.io/badge/Status-VALIDÉ-brightgreen)
+![Status](https://img.shields.io/badge/Status-VALIDATED-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-![ISO](https://img.shields.io/badge/ISO_7637--2-Conforme-green)
+![ISO](https://img.shields.io/badge/ISO_7637--2-Compliant-green)
 
-**Circuit adaptateur RPM pour Ford Mustang EcoBoost Stage 4+ (650+ HP)**
+**Galvanically isolated RPM adapter for a Ford Mustang EcoBoost Stage 4+ (650+ HP).**
 
-Isolation galvanique et conditionnement du signal bobine d'allumage vers jauge Innovate MTX-D.
+High-voltage coil signal conditioning for an Innovate MTX-D gauge with layered fire protection and zero microcontrollers.
 
 ---
 
-## 🎯 Objectif
+## 🎯 Goal
 
-Convertir le signal d'allumage haute tension (-300V à -450V) d'une bobine crayon en signal logique propre (0-5V) pour affichage RPM sur jauge Innovate MTX-D.
+Convert the harsh ignition signal from a coil-on-plug pencil coil (-300V to -450V) into a clean logic-level waveform (0-5V) for the Innovate MTX-D RPM gauge.
 
-## 🚗 Véhicule cible
+## 🚗 Target vehicle
 
-| Paramètre | Valeur |
-|-----------|--------|
-| Véhicule | Ford Mustang EcoBoost 2016 |
-| Préparation | Stage 4+ (650+ HP sur E85) |
-| Bobines | Granatelli Motor Sports haute performance |
-| Jauge | Innovate MTX-D |
+| Parameter | Value |
+|-----------|-------|
+| Vehicle | Ford Mustang EcoBoost 2016 |
+| Build | Stage 4+ (650+ HP on E85) |
+| Coils | Granatelli Motor Sports high-performance |
+| Gauge | Innovate MTX-D |
 
-## ⚡ Caractéristiques principales
+## ⚡ Core highlights
 
-- ✅ **Isolation galvanique** via optocoupleur H11L1
-- ✅ **Protection anti-feu** multicouche (fusible, PTC, TVS, Zener)
-- ✅ **Conformité ISO 7637-2** — Protection transitoires négatifs (-150V)
-- ✅ **Condensateurs 105°C automotive** — Durée vie 20+ ans
-- ✅ **Fixations mécaniques** — RTV silicone, embouts ferrule, frein-filet
-- ✅ **Boîtier UL94 V-0** — Auto-extinguible, ventilé
-- ✅ **100% analogique** — pas de microcontrôleur
-- ✅ **Validé et testé** — prêt fabrication
+- ✅ **Galvanic isolation** via H11L1 optocoupler
+- ✅ **Multi-layer fire safety** (vehicle fuse, PTC, TVS, Zener)
+- ✅ **ISO 7637-2 ready** — Negative transients protection (-150V)
+- ✅ **105°C automotive capacitors** — 20+ year lifetime
+- ✅ **Mechanical reliability** — RTV silicone, ferrules, threadlocker
+- ✅ **UL94 V-0 enclosure** — Auto-extinguishing, ventilated
+- ✅ **100% analog** — no firmware to brick
+- ✅ **Validated and tested** — production-ready layout
 
 ## 🆕 Changelog
 
-### V5.4.12.4 (09 Déc 2025)
-📋 **Documentation sécurité** (validation Lead Architect) :
-- **F_véhicule** : Rehaussé OBLIGATOIRE, position <10cm piquage documentée
-- **Boîtier** : Nouvelle section avec spécifications UL94 V-0 et ventilation
-- **Fusibles** : Clarification Time-delay (véhicule) vs Fast-blow (PCB)
+### V5.4.12.4 (09 Dec 2025)
+📋 **Safety documentation** (Lead Architect sign-off):
+- **F_vehicle**: Mandatory time-delay fuse placement documented within <10cm of tap point
+- **Enclosure**: New section with UL94 V-0 and ventilation requirements
+- **Fuses**: Clarified Time-delay (vehicle) vs Fast-blow (PCB)
 
-### V5.4.12.3 (09 Déc 2025)
-🔴 **Fiabilité mécanique** (audit Gemini) :
-- **Condensateurs** : 85°C → **105°C automotive** (durée vie ×10)
-- **Fixation D2/R1** : + RTV silicone neutre (anti-vibration)
-- **Borniers** : + Embouts ferrule + Frein-filet (anti-desserrage)
+### V5.4.12.3 (09 Dec 2025)
+🔴 **Mechanical reliability** (Gemini audit):
+- **Capacitors**: 85°C → **105°C automotive** (10× lifetime)
+- **D2/R1 mounting**: + Neutral RTV silicone (anti-vibration)
+- **Terminal blocks**: + Ferrules + Threadlocker (anti-loosening)
 
-### V5.4.12.2 (09 Déc 2025)
-🔴 **Protection ISO 7637-2** :
-- **D1** : 1N5822 (40V) → **1N5408 (1000V)** — Marge ×6,6 vs -150V
+### V5.4.12.2 (09 Dec 2025)
+🔴 **ISO 7637-2 protection**:
+- **D1**: 1N5822 (40V) → **1N5408 (1000V)** — 6.6× margin vs -150V pulse
 
 ## 🏗️ Architecture
 
 ```
-+BATT → F_véhicule (1A) → Câble 30cm → F1 (500mA) → D1 (1N5408) → TVS → Filtre π → R-78E → +5V
-                                                                                          ↓
-[BOBINE -300V] → Ferrites → R1 47kΩ → TVS 250V → R2 1kΩ → Zener 5.1V → H11L1 → VTACH → Innovate
++BATT → F_vehicle (1A) → 30cm harness → F1 (500mA) → D1 (1N5408) → TVS → π filter → R-78E → +5V
+                                                                                         ↓
+[COIL -300V] → Ferrites → R1 47kΩ → TVS 250V → R2 1kΩ → Zener 5.1V → H11L1 → VTACH → Innovate
 ```
 
-## 📁 Structure du projet
+## 📁 Project structure
 
 ```
 rpm-adapter-circuit/
-├── README.md                              # Ce fichier
+├── README.md                              # This file
 ├── LICENSE
 ├── docs/
-│   ├── Objectif_global_circuit_RPM.md     # Vue d'ensemble et philosophie
-│   ├── Circuit_RPM_V5_4_12_4.md           # Schéma circuit détaillé V5.4.12.4
-│   ├── PROTOCOLE_TEST_RPM_V2_7_3.md       # Protocole de test complet
-│   └── GUIDE_MONTAGE_V5_4_12_2.md         # Guide montage pas-à-pas
+│   ├── Objectif_global_circuit_RPM.md     # Project overview and design intent
+│   ├── Circuit_RPM_V5_4_12_4.md           # Detailed circuit schematic V5.4.12.4
+│   ├── PROTOCOLE_TEST_RPM_V2_7_3.md       # Full validation test protocol
+│   ├── GUIDE_MONTAGE_V5_4_12_2.md         # Step-by-step build guide
+│   └── VERIFICATION_REPORT.md             # Repo verification notes
 └── bom/
-    └── BOM_V5_4_12_4.md                   # Liste des composants V5.4.12.4
+    └── BOM_V5_4_12_4.md                   # Bill of materials V5.4.12.4
 ```
 
 ## 📖 Documentation
 
 | Document | Description |
 |----------|-------------|
-| [Objectif Global](docs/Objectif_global_circuit_RPM.md) | Vue d'ensemble du projet et philosophie |
-| [Circuit V5.4.12.4](docs/Circuit_RPM_V5_4_12_4.md) | Schéma détaillé, blocs, topologies |
-| [Guide Montage](docs/GUIDE_MONTAGE_V5_4_12_2.md) | Instructions montage pas-à-pas |
-| [Protocole Test V2.7.3](docs/PROTOCOLE_TEST_RPM_V2_7_3.md) | Tests labo + terrain, checklist GO/NO-GO |
-| [BOM V5.4.12.4](bom/BOM_V5_4_12_4.md) | Liste complète des composants |
+| [Project Overview](docs/Objectif_global_circuit_RPM.md) | Design intent and philosophy |
+| [Circuit V5.4.12.4](docs/Circuit_RPM_V5_4_12_4.md) | Schematic, blocks, topologies |
+| [Build Guide](docs/GUIDE_MONTAGE_V5_4_12_2.md) | Step-by-step assembly |
+| [Test Protocol V2.7.3](docs/PROTOCOLE_TEST_RPM_V2_7_3.md) | Lab + field tests, GO/NO-GO checklist |
+| [BOM V5.4.12.4](bom/BOM_V5_4_12_4.md) | Complete component list |
 
-## 📋 Composants critiques
+## 📋 Critical components
 
-| Réf | Composant | Valeur | Fonction |
-|-----|-----------|--------|----------|
-| **F_véhicule** | **Lame ATO** 🔴 | **1A Time-delay** | **Protection câble (OBLIGATOIRE)** |
-| U1 | R-78E5.0-0.5 | 5V 500mA | Régulateur DC-DC |
-| U2 | H11L1M | Opto Schmitt | Isolation galvanique |
-| **D1** | **1N5408** 🔴 | **1000V 3A** | **Protection ISO 7637-2** |
-| D2 | 15KPA18CA | TVS 18V 15kW | Protection load-dump |
-| R1 | Résistance MOX | 47kΩ 5W | Limitation courant HT |
-| **C1, C2** | **Panasonic FR** 🔴 | **22µF 50V 105°C** | **Filtrage automotive** |
+| Ref | Component | Value | Function |
+|-----|-----------|-------|----------|
+| **F_vehicle** | **ATO blade** 🔴 | **1A Time-delay** | **Cable protection (MANDATORY)** |
+| U1 | R-78E5.0-0.5 | 5V 500mA | DC-DC regulator |
+| U2 | H11L1M | Opto Schmitt | Galvanic isolation |
+| **D1** | **1N5408** 🔴 | **1000V 3A** | **ISO 7637-2 transient guard** |
+| D2 | 15KPA18CA | TVS 18V 15kW | Load-dump protection |
+| R1 | MOX resistor | 47kΩ 5W | High-voltage current limit |
+| **C1, C2** | **Panasonic FR** 🔴 | **22µF 50V 105°C** | **Automotive filtering** |
 
-## 🧪 Tests de validation
+## 🧪 Validation tests
 
-| Test | Critère GO |
-|------|------------|
-| RPM ralenti | ~700 RPM affiché |
-| RPM accélération | Suivi linéaire sans décrochage |
-| Double comptage | Absent (RPM stable) |
-| Température R1 (30min) | < 60°C |
-| Chute tension D1 | 0,6-0,7V (11,3V après D1) |
+| Test | GO criteria |
+|------|-------------|
+| Idle RPM | ~700 RPM displayed |
+| Acceleration RPM | Linear tracking without dropouts |
+| Double counting | Absent (stable RPM) |
+| R1 temperature (30min) | < 60°C |
+| D1 voltage drop | 0.6-0.7V (11.3V after D1) |
 
-## ⚠️ Avertissements
+## ⚠️ Warnings
 
-> **HAUTE TENSION** — Ce circuit manipule des signaux jusqu'à -450V. Respectez les précautions de sécurité.
+> **HIGH VOLTAGE** — Coil signals hit -450V. Follow safety procedures.
 
-> **F_VÉHICULE OBLIGATOIRE** — Sans fusible 1A <10cm du piquage = risque incendie câble.
+> **F_VEHICLE IS MANDATORY** — 1A fuse within 10cm of the tap point, otherwise fire risk on the harness.
 
-> **D1 CRITIQUE** — Vérifier ×3 l'orientation de D1 (1N5408) avant mise sous tension.
+> **D1 ORIENTATION CRITICAL** — Triple-check 1N5408 polarity before power-up.
 
-> **CONDENSATEURS 105°C** — Utiliser UNIQUEMENT des condensateurs 105°C automotive.
+> **105°C CAPACITORS ONLY** — Use automotive 105°C electrolytics exclusively.
 
-> **BOÎTIER UL94 V-0** — Plastique auto-extinguible obligatoire, ventilation requise.
+> **UL94 V-0 ENCLOSURE** — Self-extinguishing plastic required, with ventilation.
 
-## 🛡️ Conformité
+## 🛡️ Compliance
 
-- ✅ **ISO 16750-2** — Alimentation électrique véhicule
-- ✅ **ISO 7637-2** — Transitoires électriques (Pulse 1 à 5)
-- ✅ **AEC-Q100 Grade 3** — Composants -40°C à +85°C
-- ✅ **UL94 V-0** — Boîtier auto-extinguible
-- ✅ **Fiabilité mécanique** — RTV + ferrules + frein-filet
+- ✅ **ISO 16750-2** — Vehicle electrical power supply
+- ✅ **ISO 7637-2** — Electrical transients (Pulse 1 to 5)
+- ✅ **AEC-Q100 Grade 3** — Components -40°C to +85°C
+- ✅ **UL94 V-0** — Self-extinguishing enclosure
+- ✅ **Mechanical reliability** — RTV + ferrules + threadlocker
 
-## 💰 Coût estimé
+## 💰 Estimated cost
 
-| Version | Coût circuit | Fiabilité |
-|---------|--------------|-----------|
-| V5.4.12.2 | 29-48€ | Standard |
-| **V5.4.12.4** | **35-55€** | **×10 long terme** |
+| Version | Circuit cost | Reliability |
+|---------|--------------|-------------|
+| V5.4.12.2 | €29-48 | Standard |
+| **V5.4.12.4** | **€35-55** | **10× long-term** |
 
-## 👤 Auteur
+## 👤 Author
 
 **Mehdi** — [@mmmprod](https://github.com/mmmprod)
 
 ## 📄 License
 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+This project is licensed under MIT. See [LICENSE](LICENSE) for details.
 
 ---
 
-**Version:** V5.4.12.4 | **Date:** Décembre 2025 | **Statut:** ✅ PRODUCTION-READY | **Confiance:** 10/10 🔥
+**Version:** V5.4.12.4 | **Date:** December 2025 | **Status:** ✅ PRODUCTION-READY | **Confidence:** 10/10 🔥
